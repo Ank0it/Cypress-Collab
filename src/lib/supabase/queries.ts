@@ -282,7 +282,7 @@ export const createFolder = async (folder: Folder) => {
 
 export const createFile = async (file: File) => {
   try {
-    await db.insert(files).values(file);
+    await db.insert(files).values(file).onConflictDoNothing();
     return { data: null, error: null };
   } catch (error) {
     console.log(error);
