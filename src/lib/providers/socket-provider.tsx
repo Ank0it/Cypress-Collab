@@ -22,14 +22,14 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    const socketInstance = new (ClientIO as any)(
-      process.env.NEXT_PUBLIC_SITE_URL!,
-      {
-        path: '/api/socket/io',
-        addTrailingSlash: false,
-        transports: ['websocket'],
-      }
-    );
+    const socketInstance = (ClientIO as any)('/', {
+      path: '/api/socket/io',
+    });
+    socketInstance.on('connect_error', (err: any) => {
+      // surface connection errors in client console for debugging
+      // eslint-disable-next-line no-console
+      console.error('Socket connect_error:', err);
+    });
     socketInstance.on('connect', () => {
       setIsConnected(true);
     });
