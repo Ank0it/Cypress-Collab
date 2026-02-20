@@ -18,7 +18,7 @@ import React, { useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import Logo from '../../../../public/cypresslogo.svg';
+// use public path for logo to avoid SVGR/webpack runtime issues
 import Loader from '@/components/global/Loader';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { MailCheck } from 'lucide-react';
@@ -101,7 +101,7 @@ const Signup = () => {
           items-center"
         >
           <Image
-            src={Logo}
+            src={'/cypresslogo.svg'}
             alt="cypress Logo"
             width={50}
             height={50}

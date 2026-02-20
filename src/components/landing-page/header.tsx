@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
-import Logo from '../../../public/cypresslogo.svg';
+// use public path for logo
 
 import {
   NavigationMenu,
@@ -79,7 +79,7 @@ const Header = () => {
         justify-left items-center"
       >
         <Image
-          src={Logo}
+          src={'/cypresslogo.svg'}
           alt="Cypress Logo"
           width={25}
           height={25}
