@@ -1,4 +1,4 @@
-# WebProdigies — Realtime Collaboration SaaS
+# Cypress Collab — Realtime Collaboration SaaS
 
 An all-in-one collaboration and productivity platform built with Next.js 13, Supabase, Drizzle ORM, Stripe, Tailwind and websockets. This project demonstrates realtime cursors, rich-text collaboration, presence, payments, and a production-ready app structure designed for scale.
 
