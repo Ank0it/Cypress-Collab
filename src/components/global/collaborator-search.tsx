@@ -34,15 +34,16 @@ const CollaboratorSearch: React.FC<CollaboratorSearchProps> = ({
   const timerRef = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
+    const current = timerRef.current;
     return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
+      if (current) clearTimeout(current);
     };
   }, []);
 
   const getUserData = ()=>{}
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (timerRef) clearTimeout(timerRef.current);
+    if (timerRef.current) clearTimeout(timerRef.current);
     // timerRef.current = setTimeout(async () => {
     //   const res = await getUsersFromSearch(e.target.value);
     //   setSearchResults(res);
