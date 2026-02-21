@@ -23,6 +23,7 @@ const UserCard: React.FC<UserCardProps> = async ({ subscription }) => {
 
   let response;
   try {
+    const { default: db } = await import('@/lib/supabase/db');
     response = await db.query.users.findFirst({
       where: (u, { eq }) => eq(u.id, user.id),
     });
