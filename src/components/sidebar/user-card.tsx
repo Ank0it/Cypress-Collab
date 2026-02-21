@@ -19,18 +19,36 @@ const UserCard: React.FC<UserCardProps> = async ({ subscription }) => {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) return;
-  const response = await db.query.users.findFirst({
-    where: (u, { eq }) => eq(u.id, user.id),
-  });
-  let avatarPath;
-  if (!response) return;
-  if (!response.avatarUrl) avatarPath = '';
-  else {
-    avatarPath = supabase.storage
-      .from('avatars')
-      .getPublicUrl(response.avatarUrl)?.data.publicUrl;
+  if (!user) return null;
+
+  let response;
+  try {
+    response = await db.query.users.findFirst({
+      where: (u, { eq }) => eq(u.id, user.id),
+    });
+  } catch (err) {
+    // avoid crashing the server render; surface in server logs
+    // eslint-disable-next-line no-console
+    console.error('UserCard DB query error:', err);
+    return null;
   }
+
+  if (!response) return null;
+
+  let avatarPath = '';
+  if (response.avatarUrl) {
+    try {
+      avatarPath =
+        supabase.storage.from('avatars').getPublicUrl(response.avatarUrl)
+          ?.data.publicUrl || '';
+    } catch (err) {
+      // ignore storage errors during render
+      // eslint-disable-next-line no-console
+      console.error('UserCard avatar URL error:', err);
+      avatarPath = '';
+    }
+  }
+
   const profile = {
     ...response,
     avatarUrl: avatarPath,
